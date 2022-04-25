@@ -10,6 +10,7 @@
 // Sync object
 /** @type {import('@jest/types').Config.InitialOptions} */
 const config = {
+  setupFilesAfterEnv: ['./jest.setup.ts'],
   testPathIgnorePatterns: ['<rootDir>/e2e/', '<rootDir>/node_modules/'],
 }
 
