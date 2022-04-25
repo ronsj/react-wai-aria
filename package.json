@@ -14,12 +14,14 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
+    "test:watch": "tsdx test --watch",
+    "test:coverage": "tsdx test --coverage",
     "lint": "tsdx lint",
     "prepare": "husky install && tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "stories": "ladle serve",
-    "stories-build": "ladle build",
+    "stories:build": "ladle build",
     "e2e": "playwright test"
   },
   "peerDependencies": {
