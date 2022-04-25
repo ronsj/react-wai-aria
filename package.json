@@ -17,7 +17,9 @@
     "lint": "tsdx lint",
     "prepare": "husky install && tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "stories": "ladle serve",
+    "stories-build": "ladle build"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -36,6 +38,7 @@
     }
   ],
   "devDependencies": {
+    "@ladle/react": "^0.12.2",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@testing-library/react": "^13.1.1",
     "@types/react": "^18.0.6",
