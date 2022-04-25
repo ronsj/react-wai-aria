@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { test, expect, Page } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
@@ -207,14 +208,8 @@ test.describe('Editing', () => {
   test('should save edits on blur', async ({ page }) => {
     const todoItems = page.locator('.todo-list li')
     await todoItems.nth(1).dblclick()
-    await todoItems
-      .nth(1)
-      .locator('.edit')
-      .fill('buy some sausages')
-    await todoItems
-      .nth(1)
-      .locator('.edit')
-      .dispatchEvent('blur')
+    await todoItems.nth(1).locator('.edit').fill('buy some sausages')
+    await todoItems.nth(1).locator('.edit').dispatchEvent('blur')
 
     await expect(todoItems).toHaveText([
       TODO_ITEMS[0],
@@ -227,14 +222,8 @@ test.describe('Editing', () => {
   test('should trim entered text', async ({ page }) => {
     const todoItems = page.locator('.todo-list li')
     await todoItems.nth(1).dblclick()
-    await todoItems
-      .nth(1)
-      .locator('.edit')
-      .fill('    buy some sausages    ')
-    await todoItems
-      .nth(1)
-      .locator('.edit')
-      .press('Enter')
+    await todoItems.nth(1).locator('.edit').fill('    buy some sausages    ')
+    await todoItems.nth(1).locator('.edit').press('Enter')
 
     await expect(todoItems).toHaveText([
       TODO_ITEMS[0],
@@ -249,14 +238,8 @@ test.describe('Editing', () => {
   }) => {
     const todoItems = page.locator('.todo-list li')
     await todoItems.nth(1).dblclick()
-    await todoItems
-      .nth(1)
-      .locator('.edit')
-      .fill('')
-    await todoItems
-      .nth(1)
-      .locator('.edit')
-      .press('Enter')
+    await todoItems.nth(1).locator('.edit').fill('')
+    await todoItems.nth(1).locator('.edit').press('Enter')
 
     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]])
   })
@@ -264,10 +247,7 @@ test.describe('Editing', () => {
   test('should cancel edits on escape', async ({ page }) => {
     const todoItems = page.locator('.todo-list li')
     await todoItems.nth(1).dblclick()
-    await todoItems
-      .nth(1)
-      .locator('.edit')
-      .press('Escape')
+    await todoItems.nth(1).locator('.edit').press('Escape')
     await expect(todoItems).toHaveText(TODO_ITEMS)
   })
 })
@@ -292,19 +272,13 @@ test.describe('Clear completed button', () => {
   })
 
   test('should display the correct text', async ({ page }) => {
-    await page
-      .locator('.todo-list li .toggle')
-      .first()
-      .check()
+    await page.locator('.todo-list li .toggle').first().check()
     await expect(page.locator('.clear-completed')).toHaveText('Clear completed')
   })
 
   test('should remove completed items when clicked', async ({ page }) => {
     const todoItems = page.locator('.todo-list li')
-    await todoItems
-      .nth(1)
-      .locator('.toggle')
-      .check()
+    await todoItems.nth(1).locator('.toggle').check()
     await page.locator('.clear-completed').click()
     await expect(todoItems).toHaveCount(2)
     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[2]])
@@ -313,10 +287,7 @@ test.describe('Clear completed button', () => {
   test('should be hidden when there are no items that are completed', async ({
     page,
   }) => {
-    await page
-      .locator('.todo-list li .toggle')
-      .first()
-      .check()
+    await page.locator('.todo-list li .toggle').first().check()
     await page.locator('.clear-completed').click()
     await expect(page.locator('.clear-completed')).toBeHidden()
   })
@@ -330,10 +301,7 @@ test.describe('Persistence', () => {
     }
 
     const todoItems = page.locator('.todo-list li')
-    await todoItems
-      .nth(0)
-      .locator('.toggle')
-      .check()
+    await todoItems.nth(0).locator('.toggle').check()
     await expect(todoItems).toHaveText([TODO_ITEMS[0], TODO_ITEMS[1]])
     await expect(todoItems).toHaveClass(['completed', ''])
 
@@ -357,10 +325,7 @@ test.describe('Routing', () => {
   })
 
   test('should allow me to display active items', async ({ page }) => {
-    await page
-      .locator('.todo-list li .toggle')
-      .nth(1)
-      .check()
+    await page.locator('.todo-list li .toggle').nth(1).check()
     await checkNumberOfCompletedTodosInLocalStorage(page, 1)
     await page.locator('.filters >> text=Active').click()
     await expect(page.locator('.todo-list li')).toHaveCount(2)
@@ -371,10 +336,7 @@ test.describe('Routing', () => {
   })
 
   test('should respect the back button', async ({ page }) => {
-    await page
-      .locator('.todo-list li .toggle')
-      .nth(1)
-      .check()
+    await page.locator('.todo-list li .toggle').nth(1).check()
     await checkNumberOfCompletedTodosInLocalStorage(page, 1)
 
     await test.step('Showing all items', async () => {
@@ -398,20 +360,14 @@ test.describe('Routing', () => {
   })
 
   test('should allow me to display completed items', async ({ page }) => {
-    await page
-      .locator('.todo-list li .toggle')
-      .nth(1)
-      .check()
+    await page.locator('.todo-list li .toggle').nth(1).check()
     await checkNumberOfCompletedTodosInLocalStorage(page, 1)
     await page.locator('.filters >> text=Completed').click()
     await expect(page.locator('.todo-list li')).toHaveCount(1)
   })
 
   test('should allow me to display all items', async ({ page }) => {
-    await page
-      .locator('.todo-list li .toggle')
-      .nth(1)
-      .check()
+    await page.locator('.todo-list li .toggle').nth(1).check()
     await checkNumberOfCompletedTodosInLocalStorage(page, 1)
     await page.locator('.filters >> text=Active').click()
     await page.locator('.filters >> text=Completed').click()
@@ -442,7 +398,7 @@ async function createDefaultTodos(page: Page) {
 }
 
 async function checkNumberOfTodosInLocalStorage(page: Page, expected: number) {
-  return await page.waitForFunction(e => {
+  return await page.waitForFunction((e) => {
     return JSON.parse(localStorage['react-todos']).length === e
   }, expected)
 }
@@ -451,18 +407,18 @@ async function checkNumberOfCompletedTodosInLocalStorage(
   page: Page,
   expected: number
 ) {
-  return await page.waitForFunction(e => {
+  return await page.waitForFunction((e) => {
     return (
-      JSON.parse(localStorage['react-todos']).filter(i => i.completed)
+      JSON.parse(localStorage['react-todos']).filter((i) => i.completed)
         .length === e
     )
   }, expected)
 }
 
 async function checkTodosInLocalStorage(page: Page, title: string) {
-  return await page.waitForFunction(t => {
+  return await page.waitForFunction((t) => {
     return JSON.parse(localStorage['react-todos'])
-      .map(i => i.title)
+      .map((i) => i.title)
       .includes(t)
   }, title)
 }
