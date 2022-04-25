@@ -22,7 +22,8 @@
     "analyze": "size-limit --why",
     "stories": "ladle serve",
     "stories:build": "ladle build",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "check-updates": "npx npm-check-updates"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -54,6 +55,6 @@
     "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
-    "typescript": "^3.9.10"
+    "typescript": "^4.6.3"
   }
 }
