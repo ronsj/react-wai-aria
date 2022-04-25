@@ -12,7 +12,11 @@
 const config = {
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testPathIgnorePatterns: ['<rootDir>/e2e/', '<rootDir>/node_modules/'],
-  coveragePathIgnorePatterns: ['<rootDir>/src/index.{ts,tsx,js,jsx}'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx,js,jsx}',
+    '!src/**/index.{ts,tsx,js,jsx}',
+    '!src/**/*.stories.{ts,tsx,js,jsx}',
+  ],
 }
 
 module.exports = config
