@@ -1,6 +1,6 @@
 import * as React from 'react'
 import type { Story } from '@ladle/react'
-import { Switch, SwitchProps } from '../src/Switch'
+import { Switch, SwitchProps } from './Switch'
 
 const defaultArgs = {
   checked: false,
