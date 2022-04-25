@@ -1,0 +1,52 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "husky install && tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "name": "react-wai-aria",
+  "author": "Ron San Jose",
+  "module": "dist/react-wai-aria.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/react-wai-aria.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/react-wai-aria.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@testing-library/react": "^13.1.1",
+    "@types/react": "^18.0.6",
+    "@types/react-dom": "^18.0.2",
+    "husky": "^7.0.4",
+    "prettier": "^2.6.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "size-limit": "^7.0.8",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^3.9.10"
+  }
+}
