@@ -12,6 +12,7 @@
 const config = {
   setupFilesAfterEnv: ['./jest.setup.ts'],
   testPathIgnorePatterns: ['<rootDir>/e2e/', '<rootDir>/node_modules/'],
+  coveragePathIgnorePatterns: ['<rootDir>/src/index.{ts,tsx,js,jsx}'],
 }
 
 module.exports = config
